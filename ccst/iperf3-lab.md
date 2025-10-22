@@ -14,3 +14,19 @@ The purpose of this lab was to provide hands-on experience with measuring networ
 ![Topology Diagram](images/topologies/iperf3-topology.png)
 
 ## Steps
+
+### 1. Download iPerf3  
+I downloaded iPerf3 for Windows from the official site:  
+![Download page](images/iperf3-lab/download.png)  
+
+### 2. Add iPerf3 to PATH  
+Initially, I attempted to add `C:\iperf3` to the Windows PATH environment variable, but made a mistake (missed the trailing `\`):  
+![Incorrect PATH](images/iperf3-lab/addpath.png)  
+
+### 3. Test and troubleshoot  
+When checking the version, Windows could not recognize the command:  
+![PATH error](images/iperf3-lab/patherror.png)  
+
+### 4. Fix and validate  
+I corrected the PATH to `C:\iperf3\`. After reopening the terminal, `iperf3 -v` worked correctly:  
+![Working check](images/iperf3-lab/vcheck.png) 
