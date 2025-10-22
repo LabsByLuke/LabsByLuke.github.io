@@ -1,6 +1,6 @@
 # Measuring Network Latency and Throughput with **iperf3**
 
-## Obectives
+## Objectives
 The purpose of this lab was to provide hands-on experience with measuring network performance between two devices using iperf3.
 
 - Download iperf3 for windows laptop to run as the server.
