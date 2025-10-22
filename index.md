@@ -1,12 +1,7 @@
-# Welcome to Luke's Labs 🚀  
+# Luke's Labs Portfolio 🚀  
 
-This is my portfolio where I document networking labs, configs, and what I’ve learned.  
+Welcome! This site documents my networking and tech labs.  
 
-## About This Site  
-Each lab will include:  
-- Objectives (why I’m doing it)  
-- Issues I ran into  
-- Steps I took (with configs/screenshots)  
-- What I learned & conclusion  
-
-Stay tuned — more labs coming soon!
+## Sections
+- [CCST Networking Labs](ccst/index.md)
+- [Other Projects](projects/index.md)
