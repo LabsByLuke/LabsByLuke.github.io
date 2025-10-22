@@ -78,8 +78,6 @@ However, I was able to ping **from Windows to the VM** successfully, confirming 
 Windows Defender Firewall was blocking inbound ICMP requests because the WiFi network was set as **Public**.  
 I changed the network profile to **Private** and enabled the inbound ICMPv4 rule.  
 
-![Firewall](images/iperf3-lab/firewall.png)  
-
 After this change, pings from VM → Host worked.  
 
 ---
@@ -110,3 +108,4 @@ Both client and server reported ~734 Mbit/sec throughput.
 - How VirtualBox networking modes (like **Bridged**) allow VMs to act like full devices on the LAN.  
 - That real-world troubleshooting often requires checking multiple layers (VM config, IP settings, firewall rules).  
 
+[⬅ Back to CCST Labs Index](index.md)
