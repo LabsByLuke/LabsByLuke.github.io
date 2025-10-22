@@ -15,7 +15,7 @@ The purpose of this lab was to provide hands-on experience with measuring networ
 - **Network:** VirtualBox network adapter set to *Bridged* mode so the VM receives an IP in the same subnet as the host.  
 
 **Topology Diagram:**  
-![Network Topology](../images/topologies/iperf3-topology.png)
+![Network Topology](images/topologies/iperf3-topology.png)
 
 ## Steps
 
