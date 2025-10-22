@@ -1,5 +1,12 @@
 # Measuring Network Latency and Throughput with **iperf3**
 
+## Table of Contents  
+- [Lab Setup](#lab-setup)  
+- [Steps](#steps)  
+- [Results](#results)  
+- [Troubleshooting Notes](#troubleshooting-notes)  
+- [What I Learned](#what-i-learned)
+- 
 ## Objectives
 The purpose of this lab was to provide hands-on experience with measuring network performance between two devices using iperf3.
 
