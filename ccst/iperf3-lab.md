@@ -1,4 +1,4 @@
- # Measuring Network Latency and Throughput with **iperf3**
+# Measuring Network Latency and Throughput with **iperf3**
 
 ## Obectives
 The purpose of this lab was to provide hands-on experience with measuring network performance between two devices using iperf3.
