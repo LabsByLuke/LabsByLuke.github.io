@@ -8,3 +8,7 @@ The purpose of this lab was to provide hands-on experience with measuring networ
 - Install and configure iperf3 on both systems.
 - Measure network latency between the two systems.
 - Measure network throughput between the client and server.
+
+## Topology  
+
+![Topology Diagram](images/topologies/iperf3-topology.png)
