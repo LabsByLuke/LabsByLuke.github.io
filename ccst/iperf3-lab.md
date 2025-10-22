@@ -12,3 +12,5 @@ The purpose of this lab was to provide hands-on experience with measuring networ
 ## Topology  
 
 ![Topology Diagram](images/topologies/iperf3-topology.png)
+
+## Steps
