@@ -12,9 +12,6 @@
 - **Client:** Not used directly (verification via local testing).  
 - **Network:** VirtualBox Bridged Adapter.  
 
-**Topology Diagram:**  
-![Network Topology](images/staticip/topology.png)  
-
 ---
 
 ## Steps
