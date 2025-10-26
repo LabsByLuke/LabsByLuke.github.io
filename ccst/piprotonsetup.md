@@ -1,107 +1,87 @@
 # Raspberry Pi ProtonVPN Setup — Lab 2
 
-## 📌 Overview
-This lab builds on [Lab 1](raspberrypi_setup_readme.md), configuring the Raspberry Pi 5 to connect securely to ProtonVPN using **WireGuard**.  
-At the end of this lab, the Pi routes all its own traffic through ProtonVPN.
-
----
-
-## 📚 Table of Contents
-1. [Objective](#1-objective)  
-2. [Equipment](#2-equipment)  
-3. [Procedure](#3-procedure)  
-   - [Step 1 — Update & Secure the Pi](#step-1--update--secure-the-pi)  
-   - [Step 2 — Install WireGuard](#step-2--install-wireguard)  
-   - [Step 3 — Obtain ProtonVPN Config File](#step-3--obtain-protonvpn-config-file)  
-   - [Step 4 — Transfer Config File to Pi](#step-4--transfer-config-file-to-pi)  
-   - [Step 5 — Test VPN Connection](#step-5--test-vpn-connection)  
-4. [Results](#4-results)  
-5. [Key Takeaways](#5-key-takeaways)  
-6. [Future Work](#6-future-work)  
-
----
-
 ## 1. Objective
-- Configure the Raspberry Pi as a ProtonVPN client using WireGuard.  
-- Verify encrypted traffic routing through ProtonVPN exit server.  
-- Build foundation for turning the Pi into a VPN router (Labs 3–4).  
+The aim of this lab was to configure the Raspberry Pi 5 as a ProtonVPN client using **WireGuard** and confirm that its traffic is securely routed through ProtonVPN.  
+This builds on the baseline from Lab 1 (SSH + SSD boot) and prepares the Pi for future use as a VPN router.
 
 ---
 
 ## 2. Equipment
-- Raspberry Pi 5 (configured from Lab 1).  
-- ProtonVPN Plus account (for WireGuard configs).  
-- Laptop/desktop (Windows 11 with SSH + FileZilla).  
-- ProtonVPN WireGuard configuration file.  
+- Raspberry Pi 5 (from Lab 1 setup).  
+- ProtonVPN Plus account (required for WireGuard config generation).  
+- Laptop/desktop (Windows 11) with:  
+  - SSH access to the Pi.  
+  - FileZilla client (for file transfer via SFTP).  
+- ProtonVPN WireGuard configuration file (Netherlands server).  
 
 ---
 
 ## 3. Procedure
 
 ### Step 1 — Update & Secure the Pi
-Updated all packages and hardened SSH (keys already in place).  
+Keeping the system updated ensures security and compatibility with VPN packages.  
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+SSH keys were already configured in Lab 1, so no further changes were required.
 
 ---
 
 ### Step 2 — Install WireGuard
-Installed WireGuard VPN tools on the Pi:  
+Installed the WireGuard client tools:  
 ```bash
 sudo apt install wireguard -y
 ```
-
 ![WireGuard install](images/pivpn/wireguard_install.png)
 
 ---
 
 ### Step 3 — Obtain ProtonVPN Config File
-Generated a **Netherlands server WireGuard config** (`netherlands1-NL-567.conf`) via the ProtonVPN dashboard.  
+From the ProtonVPN dashboard, generated a **Netherlands WireGuard config** named `netherlands1-NL-567.conf`.  
+Options selected:  
+- Platform: GNU/Linux  
+- Protocol: WireGuard (UDP)  
+- NetShield: Enabled (ads/malware blocking)  
 
 ![ProtonVPN config download](images/pivpn/createconfigfile.png)
 
 ---
 
 ### Step 4 — Transfer Config File to Pi
-Used **FileZilla** with SSH keys to transfer the `.conf` file from Windows to the Pi’s home directory.  
+Used FileZilla with SSH key authentication to securely copy the `.conf` file into the Pi’s home directory.  
 
 ![FileZilla setup](images/pivpn/filezillasetup.png)  
 ![File transferred](images/pivpn/filesentzilla.png)
 
 ---
 
-### Step 5 — Test VPN Connection
-
-1. **Move config into WireGuard directory and rename to wg0.conf**:  
+### Step 5 — Configure WireGuard
+Moved and renamed the config to the proper directory (`/etc/wireguard/wg0.conf`) so `wg-quick` can use it:  
 ```bash
 sudo mv ~/netherlands1-NL-567.conf /etc/wireguard/wg0.conf
 ```
 
-2. **Start VPN tunnel**:  
+---
+
+### Step 6 — Establish VPN Connection
+Brought the VPN tunnel online:  
 ```bash
 sudo wg-quick up wg0
 ```
 
-At first, `resolvconf` was missing, causing an error:  
-```bash
-resolvconf: command not found
-```
-Fixed by installing:  
+Initially failed due to missing `resolvconf`. Installed it with:  
 ```bash
 sudo apt install resolvconf -y
 ```
-
 ![Resolvconf install](images/pivpn/resolv.png)
 
-3. **Retry connection** — tunnel established successfully:  
-```bash
-sudo wg-quick up wg0
-```
-
+After retrying, the tunnel came up successfully.  
 ![Tunnel active](images/pivpn/ranwg0.png)
 
-4. **Check public IP** — confirmed Netherlands exit server:  
+---
+
+### Step 7 — Verify VPN Routing
+Confirmed public IP is now ProtonVPN Netherlands exit server:  
 ```bash
 curl ifconfig.me
 ```
@@ -113,26 +93,37 @@ Output:
 ---
 
 ## 4. Results
-- ProtonVPN connection established using WireGuard.  
-- Pi traffic routed through ProtonVPN Netherlands server.  
-- Resolved dependency issue (`resolvconf`) during setup.  
+- Successfully connected Raspberry Pi to ProtonVPN via WireGuard.  
+- Verified traffic routed through ProtonVPN Netherlands server.  
+- Resolved missing dependency (`resolvconf`) during setup.  
 
 ---
 
-## 5. Key Takeaways
-- WireGuard provides a lightweight, fast VPN client ideal for the Raspberry Pi.  
-- File transfer tools (FileZilla with SSH keys) simplify moving configs securely.  
-- Verifying public IP ensures tunnel routing works as expected.  
-- Troubleshooting missing dependencies is part of real-world sysadmin work.  
+## 5. Conclusion
+The Raspberry Pi 5 is now capable of:  
+- Establishing a secure VPN tunnel with ProtonVPN.  
+- Routing its traffic through the VPN for privacy.  
+
+This lab represents the first step toward transforming the Pi into a VPN router for the local network.
 
 ---
 
-## 6. Future Work
-- **Lab 3:** Configure Pi with static LAN IP, auto-start ProtonVPN on boot, add kill switch.  
-- **Lab 4:** Convert Pi into a VPN router (subnet, DHCP, NAT).  
-- Optional: add **Pi-hole** for DNS ad-blocking and monitoring dashboards.  
+## 6. Key Takeaways
+- WireGuard is efficient and well-suited for low-power devices like the Raspberry Pi.  
+- FileZilla with SSH keys simplifies secure file transfers.  
+- Dependency troubleshooting (e.g., `resolvconf`) is a realistic part of systems administration.  
+- Verifying the exit IP ensures that the VPN is functioning as intended.  
 
 ---
 
-## 🔗 Next Steps
-Proceed to **Lab 3 — Static IP, Auto-Connect, and Kill Switch**.
+## 7. Future Work
+- **Lab 3:** Configure the Pi with a static LAN IP, set VPN to auto-start on boot, and implement a kill switch.  
+- **Lab 4:** Extend functionality to act as a VPN router (subnet, DHCP, NAT).  
+- Optional enhancements: integrate **Pi-hole** for DNS filtering, monitoring dashboards, and multiple VPN profiles.  
+
+---
+
+## 8. Topology
+*(Placeholder — diagram to be added later)*  
+
+---
