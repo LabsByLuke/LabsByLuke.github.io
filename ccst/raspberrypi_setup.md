@@ -81,7 +81,6 @@ removed the old key and allowed a fresh connection.
   ```bash
   vcgencmd bootloader_version
   ```
-  ![Bootloader Version](images/pivpn/8c40b168.png)
 
 - Used `raspi-config` → Advanced Options → Boot Order to set **NVMe/USB Boot** as default.
 
