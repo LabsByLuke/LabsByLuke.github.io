@@ -9,4 +9,5 @@ Each lab includes objectives, issues encountered, troubleshooting steps, and les
 - -lab three
 
 [Assigning a static IP to a virtual machine](staticiplab.md)
+
 [Measuring network latency and throughput using iperf3](iperf3-lab.md)
